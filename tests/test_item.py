@@ -1,5 +1,3 @@
-import pytest
-
 from src.item import Item
 import pytest
 
@@ -25,3 +23,19 @@ def test_apply_discount(fixture_item, fixture_item_2):
 
     assert fixture_item.price == 8000.0
     assert fixture_item_2.price == 20000
+
+
+def test_name(fixture_item):
+    assert fixture_item.name == 'Смартфон'
+
+
+def test_name_setter(fixture_item):
+    fixture_item.name = 'СуперСмартфон'
+
+    assert fixture_item.name == fixture_item.name[0:10]
+
+
+def test_string_to_number():
+    assert Item.string_to_number('5') == 5
+    assert Item.string_to_number('5.0') == 5
+    assert Item.string_to_number('5.5') == 5
