@@ -16,7 +16,7 @@ class Item:
         :param price: Цена за единицу товара.
         :param quantity: Количество товара в магазине.
         """
-        self.__name = name
+        self.name = name
         self.price = price
         self.quantity = quantity
         self.all.append(self)
@@ -26,6 +26,11 @@ class Item:
 
     def __str__(self):
         return f'{self.name}'
+
+    def __add__(self, other):
+        if isinstance(other, Item):
+            return self.quantity + other.quantity
+        raise Exception
 
     def calculate_total_price(self) -> float:
         """
@@ -67,4 +72,5 @@ class Item:
         """
         Change from int-str to int
         """
-        return int(float(string))
+        clean_string = string.strip().replace(',', '.')
+        return int(float(clean_string))
