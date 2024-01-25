@@ -28,7 +28,7 @@ class Item:
         return f'{self.name}'
 
     def __add__(self, other):
-        if isinstance(other, Item):
+        if isinstance(other, self.__class__):
             return self.quantity + other.quantity
         raise Exception
 
