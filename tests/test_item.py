@@ -44,3 +44,4 @@ def test_str(item_1):
 def test_add(item_1, phone_1):
     assert item_1 + phone_1 == 25
     assert phone_1 + phone_1 == 10
+    assert item_1 + 5 == None

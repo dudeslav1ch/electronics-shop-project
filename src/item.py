@@ -16,6 +16,7 @@ class Item:
         :param price: Цена за единицу товара.
         :param quantity: Количество товара в магазине.
         """
+        super().__init__()
         self.name = name
         self.price = price
         self.quantity = quantity
@@ -51,8 +52,8 @@ class Item:
         return self.__name
 
     @name.setter
-    def name(self, name_string):
-        self.__name = name_string[0:10]
+    def name(self, name):
+        self.__name = name[:10]
 
     @classmethod
     def instantiate_from_csv(cls, path_file):
