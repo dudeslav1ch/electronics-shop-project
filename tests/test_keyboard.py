@@ -7,11 +7,9 @@ def kb():
     return Keyboard('Dark Project KD87A', 9600, 5)
 
 
-def test_name(kb):
+def test_str(kb):
     assert str(kb) == "Dark Project KD87A"
 
-
-def test_lang(kb):
     assert str(kb.language) == "EN"
 
     kb.change_lang()
@@ -19,3 +17,9 @@ def test_lang(kb):
 
     kb.change_lang()
     assert str(kb.language) == "EN"
+
+
+def test_name(kb):
+    kb.name = 'Dark Project KD87A'
+
+    assert kb.name == 'Dark Project KD87A'

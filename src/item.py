@@ -1,4 +1,7 @@
 import csv
+import os.path
+
+from src.InstantiateCSVError import InstantiateCSVError
 
 
 class Item:
@@ -17,16 +20,16 @@ class Item:
         :param quantity: Количество товара в магазине.
         """
         super().__init__()
-        self.name = name
+        self.__name = name
         self.price = price
         self.quantity = quantity
-        self.all.append(self)
+        Item.all.append(self)
 
     def __repr__(self):
-        return f"{self.__class__.__name__}('{self.name}', {self.price}, {self.quantity})"
+        return f"{self.__class__.__name__}('{self.__name}', {self.price}, {self.quantity})"
 
     def __str__(self):
-        return f'{self.name}'
+        return f'{self.__name}'
 
     def __add__(self, other):
         if isinstance(other, self.__class__):
@@ -62,11 +65,17 @@ class Item:
         """
         cls.all.clear()
 
-        with open(path_file, 'r', encoding='windows-1251') as csv_file:
-            file = csv.DictReader(csv_file)
+        if not os.path.exists(path_file):
+            raise FileNotFoundError('Отсутствует файл item.csv')
 
-            for row in file:
-                cls(row['name'], float(row['price']), int(row['quantity']))
+        else:
+            with open(path_file, 'r', encoding='windows-1251') as csv_file:
+                file = csv.DictReader(csv_file)
+
+                for row in file:
+                    if len(row) != 3:
+                        raise InstantiateCSVError
+                    cls(row['name'], float(row['price']), int(row['quantity']))
 
     @staticmethod
     def string_to_number(string):
